@@ -6,6 +6,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.stream.Collectors;
 
 public class SecurityUser implements UserDetails {
 
@@ -31,7 +32,7 @@ public class SecurityUser implements UserDetails {
                 .getRoles()
                 .split(","))
                 .map(SimpleGrantedAuthority::new)
-                .toList();
+                .collect(Collectors.toList());
     }
 
     @Override

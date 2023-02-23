@@ -2,6 +2,7 @@ package dev.danvega.jpasecurity.controller;
 
 import dev.danvega.jpasecurity.model.Post;
 import dev.danvega.jpasecurity.repository.PostRepository;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,11 +19,13 @@ public class PostController {
     }
 
     @GetMapping
+    @PreAuthorize("hasRole('ADMIN')")
     public Iterable findAll() {
         return posts.findAll();
     }
 
-    @GetMapping("{id}")
+    @GetMapping("/{id}")
+    @PreAuthorize("hasRole('USER')")
     public Post findById(@PathVariable("id") Post post) {
         return post;
     }
